@@ -79,6 +79,11 @@ export const App = () => {
   //       getData('countries')
   // }, [])
 
+  const getValue = (arg) =>{
+    setPagiNum(arg)
+    console.log('hi')
+  }
+
   console.log(pagiNum)
   return (
     <SearchContext.Provider value={{searchItem, setSearchItem, items, setParametr}}>
@@ -89,7 +94,7 @@ export const App = () => {
         </Routes>
         <div className="pagi__block">
         {pagiArr.map((num, ind)=>
-          <button value={num}  onClick={(e)=>{setPagiNum(e.target.value)}}  key={ind}>{num}</button>
+          <button className='pagi__btn' value={num}  onClick={(e)=>{getValue(e.target.value)}}  key={ind}>{num}</button>
         )}
         </div>
     </div>
