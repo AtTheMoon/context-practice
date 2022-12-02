@@ -17,22 +17,57 @@ import {Routes, Route} from 'react-router-dom'
 // ]
 
 
-
-
-
 export const SearchContext = createContext()
 
 export const App = () => {
   const [items, setItems] = useState([])
   const [searchItem, setSearchItem] = useState('')
+  const [parametr, setParametr] = useState('asd')
+  const [pagiNum, setPagiNum] = useState(1)
+  const [pagiArr, setPagiArr] = useState([])
+  const [num, setNum] = useState(0)
+
+  // useEffect(()=>{
+  //   const fetchCountries = async()=>{
+  //     const res = await axios.get(`https://6386df3fe399d2e473eed468.mockapi.io/items?sortBy=price&order=${parametr}&search=${searchItem}`)
+  //     setItems(res.data)
+  //     setPagiNum(Math.ceil(res.data.length / 3))
+  //   }
+  //   fetchCountries() 
+  // },[])
 
   useEffect(()=>{
     const fetchCountries = async()=>{
-      const res = await axios.get('http://localhost:9999/countries')
+      const res = await axios.get(`https://6386df3fe399d2e473eed468.mockapi.io/items?sortBy=price&order=${parametr}&search=${searchItem}`)
+      setNum(res.data.length)
+    }
+    fetchCountries() 
+  },[])
+
+  useEffect(()=>{
+    const fetchCountries = async()=>{
+      const res = await axios.get(`https://6386df3fe399d2e473eed468.mockapi.io/items?page=${pagiNum}&limit=3&sortBy=price&order=${parametr}&search=${searchItem}`)
       setItems(res.data)
     }
-    fetchCountries()
-  },[])
+    fetchCountries() 
+    return(()=>{
+      setPagiArr([])
+    })
+  },[searchItem, parametr, pagiNum])
+
+  // console.log(num)
+
+  for(let i = 1; i <=  Math.ceil(num / 3); i++){
+    if(pagiArr.length <= Math.ceil(num / 3)){
+      pagiArr.push(i)
+    } 
+  }
+
+  if(pagiArr.length > Math.ceil(num / 3)){
+    pagiArr.pop()
+  }
+
+  // console.log(pagiArr)
 
   // useEffect(()=>{
   //       const HOST = 'http://localhost:9999'
@@ -44,16 +79,20 @@ export const App = () => {
   //       getData('countries')
   // }, [])
 
-  // console.log(items)
-
+  console.log(pagiNum)
   return (
-    <SearchContext.Provider value={{searchItem, setSearchItem, items}}>
+    <SearchContext.Provider value={{searchItem, setSearchItem, items, setParametr}}>
     <div className="container">
         <Header/>
         <Routes>
           <Route path='/' element={<Content/>}></Route>
         </Routes>
+        <div className="pagi__block">
+        {pagiArr.map((num, ind)=>
+          <button value={num}  onClick={(e)=>{setPagiNum(e.target.value)}}  key={ind}>{num}</button>
+        )}
+        </div>
     </div>
     </SearchContext.Provider>
   )
-}
+  }
