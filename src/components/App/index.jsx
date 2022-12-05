@@ -23,9 +23,8 @@ export const App = () => {
   const [items, setItems] = useState([])
   const [searchItem, setSearchItem] = useState('')
   const [parametr, setParametr] = useState('asd')
-  const [pagiNum, setPagiNum] = useState(1)
   const [pagiArr, setPagiArr] = useState([])
-  const [num, setNum] = useState(0)
+  const [page, setPage] = useState(1)
 
   // useEffect(()=>{
   //   const fetchCountries = async()=>{
@@ -36,36 +35,43 @@ export const App = () => {
   //   fetchCountries() 
   // },[])
 
+  // useEffect(()=>{
+  //   const fetchCountries = async()=>{
+  //     const res = await axios.get(`https://6386df3fe399d2e473eed468.mockapi.io/items?sortBy=price&order=${parametr}&search=${searchItem}`)
+  //     setNum(res.data.length)
+  //   }
+  //   fetchCountries() 
+  // },[])
+
   useEffect(()=>{
     const fetchCountries = async()=>{
-      const res = await axios.get(`https://6386df3fe399d2e473eed468.mockapi.io/items?sortBy=price&order=${parametr}&search=${searchItem}`)
-      setNum(res.data.length)
+      const res = await axios.get(`https://6386df3fe399d2e473eed468.mockapi.io/items?page=${page}&limit=3&sortBy=price&order=${parametr}&search=${searchItem}`)
+      setItems(res.data)
+    }
+    fetchCountries() 
+  },[searchItem, parametr, page])
+
+  useEffect(()=>{
+    const fetchCountries = async()=>{
+      const res = await axios.get(`https://6386df3fe399d2e473eed468.mockapi.io/items`)
+      console.log(res.data.length);
+      const btnsPg = Math.ceil(res.data.length / 3)
+      setPagiArr([...new Array(btnsPg).fill(1)])
     }
     fetchCountries() 
   },[])
 
-  useEffect(()=>{
-    const fetchCountries = async()=>{
-      const res = await axios.get(`https://6386df3fe399d2e473eed468.mockapi.io/items?page=${pagiNum}&limit=3&sortBy=price&order=${parametr}&search=${searchItem}`)
-      setItems(res.data)
-    }
-    fetchCountries() 
-    return(()=>{
-      setPagiArr([])
-    })
-  },[searchItem, parametr, pagiNum])
-
   // console.log(num)
 
-  for(let i = 1; i <=  Math.ceil(num / 3); i++){
-    if(pagiArr.length <= Math.ceil(num / 3)){
-      pagiArr.push(i)
-    } 
-  }
+  // for(let i = 1; i <=  Math.ceil(num / 3); i++){
+  //   if(pagiArr.length <= Math.ceil(num / 3)){
+  //     pagiArr.push(i)
+  //   } 
+  // }
 
-  if(pagiArr.length > Math.ceil(num / 3)){
-    pagiArr.pop()
-  }
+  // if(pagiArr.length > Math.ceil(num / 3)){
+  //   pagiArr.pop()
+  // }
 
   // console.log(pagiArr)
 
@@ -79,12 +85,22 @@ export const App = () => {
   //       getData('countries')
   // }, [])
 
-  const getValue = (arg) =>{
-    setPagiNum(arg)
-    console.log('hi')
-  }
 
-  console.log(pagiNum)
+
+  // const getValue = (arg) =>{
+  //   setPagiNum(arg)
+  //   // if(arg === pagiNum){
+  //   //   setIsActive(true)
+  //   //   console.log('hi');
+  //   // }else{
+  //   //   setIsActive(false)
+  //   // }
+  // }
+
+  // const number = 5
+  // const arr = new Array(number).fill('Ermek-superman')
+  // console.log(arr)
+
   return (
     <SearchContext.Provider value={{searchItem, setSearchItem, items, setParametr}}>
     <div className="container">
@@ -93,9 +109,15 @@ export const App = () => {
           <Route path='/' element={<Content/>}></Route>
         </Routes>
         <div className="pagi__block">
-        {pagiArr.map((num, ind)=>
-          <button className='pagi__btn' value={num}  onClick={(e)=>{getValue(e.target.value)}}  key={ind}>{num}</button>
-        )}
+          {
+            pagiArr.map((_, ind)=>{
+              return (
+                <button
+                  onClick={()=>{setPage(ind+1)}} 
+                  key={ind}>{ind + 1}</button>
+              )
+            })
+          }
         </div>
     </div>
     </SearchContext.Provider>

@@ -4,7 +4,6 @@ import s from './Input.module.css'
 
 export const Input = () => {
   const {searchItem, setSearchItem, setPagiNum} = useContext(SearchContext)
-  console.log(searchItem);
   return (
     <input
     value={searchItem}

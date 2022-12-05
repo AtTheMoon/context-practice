@@ -35,16 +35,16 @@ body{
     position: fixed;
     bottom: 30px;
 
-    button{
+    .pagi__btn{
         padding: 8px 10px;
         cursor: pointer;
-        background-color: red;
+        background-color: orange;
         color: white;
         font-size: 16px;
         font-weight: 700;
     }
 
-    .pagi__btn{
-        background-color: orange;
+    .active{
+        background-color: red;
     }
 }
