@@ -58,7 +58,7 @@ export const App = () => {
       const btnsPg = Math.ceil(res.data.length / 3)
       setPagiArr([...new Array(btnsPg).fill(1)])
     }
-    fetchCountries() 
+    fetchCountries()
   },[])
 
   // console.log(num)
@@ -102,7 +102,7 @@ export const App = () => {
   // console.log(arr)
 
   return (
-    <SearchContext.Provider value={{searchItem, setSearchItem, items, setParametr}}>
+    <SearchContext.Provider value={{searchItem, setSearchItem, items, setParametr, setPage}}>
     <div className="container">
         <Header/>
         <Routes>
@@ -112,7 +112,8 @@ export const App = () => {
           {
             pagiArr.map((_, ind)=>{
               return (
-                <button
+                <button className='pagi__btn'
+                style={{backgroundColor: page==ind+1 ? 'red' : ''}}
                   onClick={()=>{setPage(ind+1)}} 
                   key={ind}>{ind + 1}</button>
               )

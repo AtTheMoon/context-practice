@@ -27,21 +27,24 @@ body{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
+    padding: 50px 0 0;
 }
 
 .pagi__block{
     min-width: 200px;
     display: flex;
     position: fixed;
-    bottom: 30px;
+    bottom: 200px;
+    right: 100px;
 
     .pagi__btn{
-        padding: 8px 10px;
+        padding: 8px 12px;
         cursor: pointer;
-        background-color: orange;
+        background-color: rgb(151, 0, 175);
         color: white;
         font-size: 16px;
         font-weight: 700;
+        border-radius: 10px;
     }
 
     .active{

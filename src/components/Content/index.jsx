@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { SearchContext } from '../App'
 import { CountryItem } from './Countryitem'
+import { Skeleton } from './Countryitem/Skeleton'
 
 export const Content = () => {
   const {items, searchItem} = useContext(SearchContext)
@@ -10,7 +11,7 @@ export const Content = () => {
     <div className='country-list'>
       {
         items.map(item=>{
-          return(<CountryItem key ={item.id} {...item}/>)
+          return(<Skeleton />)
         })
       }
     </div>
