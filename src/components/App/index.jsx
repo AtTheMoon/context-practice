@@ -25,6 +25,7 @@ export const App = () => {
   const [parametr, setParametr] = useState('asd')
   const [pagiArr, setPagiArr] = useState([])
   const [page, setPage] = useState(1)
+  const [isLoading, setIsLoading] = useState(true)
 
   // useEffect(()=>{
   //   const fetchCountries = async()=>{
@@ -44,11 +45,15 @@ export const App = () => {
   // },[])
 
   useEffect(()=>{
+    setIsLoading(true)
     const fetchCountries = async()=>{
       const res = await axios.get(`https://6386df3fe399d2e473eed468.mockapi.io/items?page=${page}&limit=3&sortBy=price&order=${parametr}&search=${searchItem}`)
       setItems(res.data)
+      setIsLoading(false)
     }
-    fetchCountries() 
+    setTimeout(()=>{
+      fetchCountries()
+    }, 5000)
   },[searchItem, parametr, page])
 
   useEffect(()=>{
@@ -58,6 +63,7 @@ export const App = () => {
       const btnsPg = Math.ceil(res.data.length / 3)
       setPagiArr([...new Array(btnsPg).fill(1)])
     }
+
     fetchCountries()
   },[])
 
@@ -102,7 +108,7 @@ export const App = () => {
   // console.log(arr)
 
   return (
-    <SearchContext.Provider value={{searchItem, setSearchItem, items, setParametr, setPage}}>
+    <SearchContext.Provider value={{searchItem, setSearchItem, items, setParametr, setPage, isLoading}}>
     <div className="container">
         <Header/>
         <Routes>

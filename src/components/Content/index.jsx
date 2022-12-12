@@ -4,14 +4,18 @@ import { CountryItem } from './Countryitem'
 import { Skeleton } from './Countryitem/Skeleton'
 
 export const Content = () => {
-  const {items, searchItem} = useContext(SearchContext)
+  const {items, searchItem, isLoading} = useContext(SearchContext)
 
 
   return (
     <div className='country-list'>
       {
-        items.map(item=>{
+        isLoading ?
+        [...new Array(3)].map(item=>{
           return(<Skeleton />)
+        }):
+        items.map(item=>{
+          return <CountryItem {...item}/>
         })
       }
     </div>
