@@ -12,9 +12,9 @@
 .skeleton::before{
     content:  '';
     position: absolute;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0), #fff, rgba(255, 255, 255, 0));
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgb(147, 228, 228) 50%, rgba(255, 255, 255, 0.1) 100%);
     animation: skeleton 1.25s infinite;
-    width: 230px;
+    width: 170px;
     height: 250px;
     z-index: 1;
 }

@@ -21,6 +21,24 @@ body{
     align-items: center;
 }
 
+.limit__btn{
+    display: inline-block;
+}
+
+.limit__btns{
+    margin: 10px 0 20px;
+}
+
+.limit__btns button{
+    padding: 8px 10px;
+    cursor: pointer;
+    background-color: rgb(118, 238, 222);
+    color: black;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 10px;
+}
+
 .country-list{
     width: 60vw;
     margin: 50px auto;

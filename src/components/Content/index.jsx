@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
 import { SearchContext } from '../App'
+import { Pagination } from '../Pagination'
 import { CountryItem } from './Countryitem'
 import { Skeleton } from './Countryitem/Skeleton'
 
 export const Content = () => {
-  const {items, searchItem, isLoading} = useContext(SearchContext)
+  const {items, searchItem, isLoading, page, setPage, pagiArr} = useContext(SearchContext)
 
 
   return (
@@ -18,6 +19,8 @@ export const Content = () => {
           return <CountryItem {...item}/>
         })
       }
+
+      <Pagination arr={pagiArr} page={page} setPage={setPage}/>
     </div>
   )
 }

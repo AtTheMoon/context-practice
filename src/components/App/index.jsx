@@ -4,6 +4,9 @@ import { Content } from '../Content'
 import { Header } from '../Header'
 import './App.scss'
 import {Routes, Route} from 'react-router-dom'
+import { Todos } from '../Todos'
+import { Posts } from '../Posts'
+import { Users } from '../Users'
 
 // const countries = [
 //   {id: 1, title: 'France', flag: 'https://www.worldometers.info/img/flags/small/tn_fr-flag.gif'},
@@ -15,7 +18,6 @@ import {Routes, Route} from 'react-router-dom'
 //   {id: 7, title: 'Japan', flag: 'https://www.worldometers.info/img/flags/small/tn_ja-flag.gif'},
 //   {id: 8, title: 'USA', flag: 'https://www.worldometers.info/img/flags/small/tn_us-flag.gif'}
 // ]
-
 
 export const SearchContext = createContext()
 
@@ -51,9 +53,7 @@ export const App = () => {
       setItems(res.data)
       setIsLoading(false)
     }
-    setTimeout(()=>{
       fetchCountries()
-    }, 5000)
   },[searchItem, parametr, page])
 
   useEffect(()=>{
@@ -108,24 +108,16 @@ export const App = () => {
   // console.log(arr)
 
   return (
-    <SearchContext.Provider value={{searchItem, setSearchItem, items, setParametr, setPage, isLoading}}>
+    <SearchContext.Provider value={{searchItem, setSearchItem, items, setParametr, setPage, isLoading, pagiArr, page}}>
     <div className="container">
         <Header/>
+        <br />
         <Routes>
-          <Route path='/' element={<Content/>}></Route>
+          <Route path='/' element={<Content/>}/>
+          <Route path='/home' element={<Posts isBtnVisible={true}/>}/>
+          <Route path='/about' element={<Todos/>}/>
+          <Route path='/more' element={<Users/>}/>
         </Routes>
-        <div className="pagi__block">
-          {
-            pagiArr.map((_, ind)=>{
-              return (
-                <button className='pagi__btn'
-                style={{backgroundColor: page==ind+1 ? 'red' : ''}}
-                  onClick={()=>{setPage(ind+1)}} 
-                  key={ind}>{ind + 1}</button>
-              )
-            })
-          }
-        </div>
     </div>
     </SearchContext.Provider>
   )

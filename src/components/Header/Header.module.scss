@@ -1,3 +1,4 @@
+
 .header{
     display: flex;
     width: 100%;
@@ -6,6 +7,14 @@
     align-items: center;
     padding: 15px 50px;
     border-bottom: 1px solid white;
+
+    .active{
+        color: aqua;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: none;
+    }
     
     &__logo{
         width: 60px;
@@ -28,7 +37,10 @@
         font-size: 16px;
         font-weight: 700;
         cursor: pointer;
+        color: white;
+        text-decoration: none;
     }
+
 
     &__btn_up{
         padding: 3px 25px;
@@ -37,7 +49,8 @@
         cursor: pointer;
         color: white;
         background: rgb(9,58,121);
-        background: linear-gradient(225deg, rgba(9,58,121,1) 35%, rgba(218,0,255,1) 100%);
+        border-radius: 10px;
+        background: linear-gradient(225deg, rgb(93, 149, 222) 35%, rgba(218,0,255,1) 100%);
     }
 
     &__btn_down{
@@ -47,6 +60,7 @@
         cursor: pointer;
         color: white;
         background: rgb(9,58,121);
-        background: linear-gradient(90deg, rgba(9,58,121,1) 35%, rgba(218,0,255,1) 100%);
+        border-radius: 10px;
+        background: linear-gradient(90deg, rgb(93, 149, 222) 35%, rgba(218,0,255,1) 100%);
     }
 }
